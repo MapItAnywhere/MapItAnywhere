@@ -42,7 +42,7 @@
 0. Install docker by following the instructions on their [website](https://www.docker.com/get-started/)
 1. Build the docker image `mia/Dockerfile` by running: 
 
-        docker build -t mia:release mia/Dockerfile
+        docker build -t mia:release mia
 2. Launch the container while mounting this repository to the container file system.
 
         docker run -v <PATH_TO_THIS_REPO>:/home/MapItAnywhere --network=bridge -it mia:release
