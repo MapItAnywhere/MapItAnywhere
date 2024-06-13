@@ -1,0 +1,24 @@
+defaults:
+  - schema/data: mia
+  - data: mia
+  - model: mapper
+  - training
+  - _self_
+
+experiment:
+  name: MIA_DINOv2_Pretrain
+
+model:
+  loss:
+    xent_weight: 1.0
+    dice_weight: 1.0
+    focal_loss: false
+    focal_loss_gamma: 2.0
+    requires_frustrum: true
+    class_weights: [ 1.00351229,  4.34782609,  1.00110121, 1.03124678,
+        6.69792364,  7.55857899 ]
+    label_smoothing: 0.1
+
+training:
+  trainer:
+    max_epochs: 15

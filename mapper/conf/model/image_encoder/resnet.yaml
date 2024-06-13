@@ -1,0 +1,12 @@
+name: feature_extractor_resnet
+backbone:
+  pretrained: true
+  frozen: true
+  output_dim: ${model.latent_dim} # Match Latent Dimension
+  input_dim: 3
+  encoder: resnet50
+  num_downsample: null
+  remove_stride_from_first_conv: false
+  decoder_norm: "nn.BatchNorm2d"
+  do_average_pooling: false
+  checkpointed: false

@@ -1,0 +1,40 @@
+name: kitti
+seam_root_dir: /path/to/generated/seam
+dataset_root_dir: /path/to/kitti/dataset
+bev_percentage: 100
+pixel_per_meter: 2
+crop_size_meters: 50
+target_focal_length: 256
+resize_image: null
+pad_to_multiple: 14
+num_classes: 8
+loading:
+  train:
+    batch_size: 32
+    num_workers: 32
+  val:
+    batch_size: 32
+    num_workers: 32
+  test:
+    batch_size: 32
+    num_workers: 32
+pad_to_square: true
+rectify_pitch: true
+gravity_align: false
+class_mapping: [0, 0, 1, 2, 0, 3]
+augmentations:
+    enabled: True
+    brightness: 0.5
+    contrast: 0.5
+    saturation: 0.5
+    random_flip: 0.5
+    hue: 0.5
+    random_resized_crop: False  
+    gaussian_noise:
+        enabled: False
+        mean: 0.0
+        std: 0.1
+    brightness_contrast:
+        enabled: True
+        brightness_factor: 0.2
+        contrast_factor: 0.2

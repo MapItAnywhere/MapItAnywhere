@@ -1,0 +1,54 @@
+filter_pipeline:
+  name: "mia"
+  filters:
+    - value_missing_filter:
+        name: "required_fields_filter"
+        keys: 
+          - "thumb_2048_url"
+          - "computed_geometry.coordinates"
+          - "sfm_cluster.id"
+    - date_filter:
+        from_year: 2017
+    - value_in_list_filter:
+        name: "camera_model_filter"
+        key: "model"
+        exclude: False
+        lst: 
+          - "hdr-as200v"
+          - "hdr-as300"
+          - "fdr-x3000"
+          - "fdr-x1000v"
+          - "gopromax"
+          - "goprofusionfs1.04.01.80.00"
+          - "goprofusion"
+          - "goprofusionfs1.04.01.70.00"
+          - "iphone11"
+          - "iphone11pro"
+          - "iphone11promax"
+          - "iphone12"
+          - "iphone12pro"
+          - "iphone12promax"
+          - "iphone13"
+          - "iphone13pro"
+          - "iphone13promax"
+          - "sm-g930v"
+          - "sm-g970u"
+          - "lm-v405"
+    - value_in_list_filter:
+        name: "camera_type_filter"
+        key: "camera_type"
+        exclude: False
+        lst: 
+          - "perspective"
+          - "fisheye"
+    - angle_discrip_filter:
+        thresh: 20
+        less_than: True
+    - loc_discrip_filter:
+        thresh: 3
+        less_than: True
+    - value_range_filter:
+        name: "exif_filter"
+        key: "exif_orientation"
+        from_v: 1
+        to_v: 1

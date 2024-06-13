@@ -1,0 +1,94 @@
+# Where to save the downloaded dataset
+dataset_dir: "datasets/new_locations"
+
+fpv_options:
+  # Pipeline configuration to filter FPV images
+  filter_pipeline_cfg: "mia/fpv/filter_pipelines/mia.yaml"
+
+  # Chunk size is used for checkpointing as image metadata
+  # can be very memory intensive. This allows you to resume
+  # from the last chunk in case things go wrong.
+  metadata_download_chunk_size: 50000
+
+  # FPV retrieval is comprised of the stages bellow
+  # these boolean flags allow you to only execute certain stages
+  # Note that the stages are ordered and later stages assume previous stages
+  # are complete.
+  stages: 
+    get_image_points_from_tiles: True
+    get_metadata: True
+    run_filter: True
+    download_images: True
+    to_process_sequence: True
+
+bev_options:
+  # Local planet dump OSM file path. File format should be either .osm or .json.
+  # If not provided, tiled OSM data will be downloaded from the internet.
+  # Additionally, the OSM data will be used to clip images such that they all lie within its boundary box.
+  osm_fp:
+
+  # Download the OSM file encompoassing the whole area + some padding
+  # Pretty slow to render but can fix the problem of missing road segments,
+  # which happens when the small bboxes do not contain any of the ends of the road segment.
+  one_big_osm: False
+
+  # Padding in meters that allows rendering a bigger bounding box then cropping.
+  # Useful to reduce the problem of missing road segments.
+  # If one_big_osm option is turned on, this padding is added over the big map only.
+  padding: 50
+
+  # Download OSM data only and do not process maps into semantic masks.
+  download_osm_only: False
+
+  # If enabled, the osm_cache will store a file per ID which removes the need for synchronization
+  # between processes. If disabled, osm_cache will store files based on bbox queries, enabling 
+  # reuse of osm tiles. This was observed to reduce needed OSM downloads by ~20% but will 
+  # trigger file lock synchronization if using multiworkers to avoid race conditions.
+  store_osm_per_id: False
+
+  # MapMachine style sheet
+  map_machine_scheme: "mia/bev/styles/mia.yml"
+
+  #Final map pixel size after rotation
+  map_length: 224
+
+  # Map resolution in meters per pixel
+  meters_per_pixel: 0.5
+
+  # If downsampling the map after processing is desired
+  # You can use the below downsampling factor
+  final_downsample: 1
+
+  # Store satelite images as well using google earth engine.
+  # Requires you to already have a google earth engine project, be authenticated using `earthengine authenticate`
+  # and a the project id set using gcloud auth `gcloud auth application-default set-quota-project PROJECT_ID`)
+  store_sat: False
+
+  # Whether or not to store RAW BEV svgs and rendered semantic masks.
+  store_all_steps: False
+  
+  # How many processes to use to process images. Set to 0 to disable multiprocessing.
+  n_workers: 0
+
+  # Redownload existing BEV images. Useful if style sheet is updated.
+  redownload: False
+
+  # Should we sample from the dataframe instead of downloading everything?
+  # Set to -1 to download everything
+  n_samples: -1
+
+# List all locations you want to download and process below
+cities:
+  - name: "Mount Oliver"
+    state: "Pennsylvania" # (Optional)
+    country: "United States" # (Optional)
+    bound_type: "auto_shape" # ["auto_shape", "auto_bbox", "custom_size", "custom_bbox"]
+  
+  - name: "Greensburg"
+    state: "Pennsylvania"
+    bound_type: "custom_size"
+    custom_size: 5 # 5km x 5km centered on auto-fetched city center
+  
+  - name: "Frick Park"
+    bound_type: "custom_bbox"
+    custom_bbox: "-79.9086,40.4294,-79.9052,40.4315" # East,South,West,North

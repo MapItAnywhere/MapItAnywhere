@@ -1,0 +1,26 @@
+defaults:
+  - schema/data: nuscenes
+  - data: nuscenes
+  - model: mapper
+  - training
+  - _self_
+
+experiment:
+  name: MIA_DINOv2_Mapper_NuScenes
+
+model:
+  loss:
+    xent_weight: 1.0
+    dice_weight: 1.0
+    focal_loss: false
+    focal_loss_gamma: 2.0
+    class_weights: [1.00060036,  1.85908161,  1.0249052, 0., 0., 2.57267816]
+    requires_frustrum: true
+    label_smoothing: 0.1
+
+training:
+  checkpoint: /path/to/checkpoint
+  finetune: true
+  lr: 0.0001
+  trainer:
+    max_epochs: 50

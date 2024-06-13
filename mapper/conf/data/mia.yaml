@@ -1,0 +1,44 @@
+name: mapillary
+scenes:
+- chicago
+- new_york
+- los_angeles
+- san_francisco
+split: /path/to/split/file
+data_dir: /path/to/mia/dataset
+loading:
+  train:
+    batch_size: 128
+    num_workers: 30
+  val:
+    batch_size: 128
+    num_workers: 30
+  test:
+    batch_size: 1
+    num_workers: 0
+  testsmall:
+    batch_size: 1
+    num_workers: 0
+num_classes: 6
+pixel_per_meter: 2
+crop_size_meters: 64
+resize_image: 512
+pad_to_square: true
+rectify_pitch: true
+gravity_align: true
+augmentations:
+    enabled: True
+    brightness: 0.5
+    contrast: 0.5
+    saturation: 0.5
+    random_flip: 0.5
+    hue: 0.5
+    random_resized_crop: False  
+    gaussian_noise:
+        enabled: False
+        mean: 0.0
+        std: 0.1
+    brightness_contrast:
+        enabled: True
+        brightness_factor: 0.2
+        contrast_factor: 0.2
