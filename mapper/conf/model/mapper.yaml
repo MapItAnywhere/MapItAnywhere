@@ -1,0 +1,15 @@
+defaults:
+  - schema/backbone: dino
+  - image_encoder: dino
+
+segmentation_head:
+  dropout_rate: 0.2
+name: map_perception_net
+num_classes: 6
+latent_dim: 128
+z_max: 50
+x_max: 25
+pixel_per_meter: ${data.pixel_per_meter}
+num_scale_bins: 32
+loss:
+  num_classes: ${..num_classes}

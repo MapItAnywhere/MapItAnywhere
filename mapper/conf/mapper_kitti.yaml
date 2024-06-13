@@ -1,0 +1,23 @@
+defaults:
+  - schema/data: kitti
+  - data: kitti
+  - model: mapper
+  - training
+  - _self_
+
+experiment:
+  name: MIA_DINOv2_Mapper_KITTI
+
+model:
+  loss:
+    xent_weight: 1.0
+    dice_weight: 1.0
+    focal_loss: false
+    focal_loss_gamma: 2.0
+    requires_frustrum: true
+    requires_flood_mask: true
+    class_weights: null
+    label_smoothing: 0.1
+
+training:
+  checkpoint: /path/to/checkpoint

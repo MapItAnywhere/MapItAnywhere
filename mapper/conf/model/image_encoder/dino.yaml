@@ -1,0 +1,5 @@
+name: feature_extractor_DPT
+backbone:
+  pretrained: true
+  frozen: true
+  output_dim: ${model.latent_dim} # Match Latent Dimension
