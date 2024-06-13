@@ -16,6 +16,8 @@
 The Map It Anywhere (MIA) dataset contains large-scale map-prediction-ready data curated from public datasets. 
 Specifically, the dataset empowers Bird's Eye View (BEV) map prediction given First Person View (FPV) RGB images, by providing diversity in location and cameras beyond current datasets. The dataset contains 1.2 million high quality first-person-view (FPV) and bird's eye view (BEV) map pairs covering 470 squared kilometers, which to the best of our knowledge provides 6x more coverage than the closest publicly available map prediction dataset, thereby facilitating future map prediction research on generalizability and robustness. The dataset is curated using our MIA data engine [code](https://github.com/MapItAnywhere/MapItAnywhere) to sample from six urban-centered location: New York, Chicago, Houston, Los Angeles, Pittsburgh, and San Francisco.
 
+Dataset download links are available [here]([Download the dataset](https://cmu.box.com/s/6tnlvikg1rcsai0ve7t8kgdx9ago9x9q).) Please refer to [Getting Started](#getting-started) page on how to use.
+
 ## Data
 ### Dataset Structure
 
