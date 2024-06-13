@@ -124,7 +124,9 @@ To Generate KITTI360-BEV dataset prediction results (on validation split), use:
 
 
 ## License
-[More Information Needed]
+The FPVs were curated and processed from Mapillary and have the same CC by SA license. These include all images files, parquet dataframes, and dump.json. The BEVs were curated and processed from OpenStreetMap and has the same Open Data Commons Open Database (ODbL) License. These include all semantic masks and flood masks. The rest of the data is licensed under CC by SA license.
+
+Code is licensed under CC by SA license.
 
 ## Acknowledgement
 We thank the authors of the following repositories for their open-source code:
