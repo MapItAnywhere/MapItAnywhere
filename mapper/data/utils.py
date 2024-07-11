@@ -1,5 +1,9 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
+# Adapted from OrienterNet, Paul-Edouard Sarlin, ETH Zurich
+# https://github.com/facebookresearch/OrienterNet
+# Released under the CC-BY-NC license
+
 import numpy as np
 from scipy.spatial.transform import Rotation
 

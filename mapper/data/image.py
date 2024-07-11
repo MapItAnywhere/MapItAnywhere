@@ -1,5 +1,9 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
+# Adapted from OrienterNet, Paul-Edouard Sarlin, ETH Zurich
+# https://github.com/facebookresearch/OrienterNet
+# Released under the CC-BY-NC license
+
 from typing import Callable, Optional, Union, Sequence
 
 import numpy as np
@@ -122,6 +126,8 @@ def pad_image(
         assert w <= w_new
         top = bottom = left = right = 0
     slice_out = np.s_[..., : min(h, h_new), : min(w, w_new)]
+    print(slice_out)
+    print(h, h_new, w, w_new)
     slice_in = np.s_[
         ..., max(top, 0) : h - max(bottom, 0), max(left, 0) : w - max(right, 0)
     ]

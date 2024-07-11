@@ -1,5 +1,9 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
+# Adapted from OrienterNet, Paul-Edouard Sarlin, ETH Zurich
+# https://github.com/facebookresearch/OrienterNet
+# Released under the CC-BY-NC license
+
 import torch
 from torch.nn.functional import grid_sample
 

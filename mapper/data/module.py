@@ -1,3 +1,7 @@
+# Adapted from OrienterNet, Paul-Edouard Sarlin, ETH Zurich
+# https://github.com/facebookresearch/OrienterNet
+# Released under the CC-BY-NC license
+
 from typing import Optional
 from omegaconf import DictConfig
 import pytorch_lightning as L
