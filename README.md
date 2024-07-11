@@ -88,6 +88,23 @@ If successful, the script will generate a PDF called `compare.pdf` in the pittsb
 ## Downloading the MIA dataset
 Refer to [mia/dataset.md](mia/dataset.md) for instructions.
 
+## Setting Up Mapper Environment
+
+### Install using pip
+You can install all requirements using pip by running:
+
+    pip install -r mapper/requirements.txt
+
+### Use Docker
+To use Mapper using Docker, please follow the steps:
+1. Build the docker image `mapper/Dockerfile` by running: 
+        
+        cd mapper/
+        docker build -t mapper:release mapper
+2. Launch the container while mounting this repository to the container file system.
+    
+        docker run -v <PATH_TO_THIS_REPO>:/home/mapper --network=bridge -it --gpus=all mapper:release
+
 ## Training
 
 ### Pre-train with MIA Dataset
@@ -122,6 +139,13 @@ To Generate KITTI360-BEV dataset prediction results (on validation split), use:
 
     python -m mapper.mapper -cn mapper_kitti training.checkpoint=<PATH TO PRETRAINED MODEL> data.seam_root_dir=<PATH TO SEAM ROOT> data.dataset_root_dir=<PATH TO KITTI DATASET> training.eval=true
 
+## Inference
+We have also provided a script in case you want to map a custom image. To do so, first set up the environment, then run the following:
+
+    python -m mapper.customized_inference training.checkpoint="<YOUR CHECKPOINT PATH>" image_path="<PATH TO YOUR IMAGE>" save_path="<PATH TO SAVE THE OUTPUT>"
+
+## Trained Weights
+We have hosted trained weights for Mapper model using MIA dataset on Huggingface. [Click Here](https://huggingface.co/mapitanywhere/mapper) to download.
 
 ## License
 The FPVs were curated and processed from Mapillary and have the same CC by SA license. These include all images files, parquet dataframes, and dump.json. The BEVs were curated and processed from OpenStreetMap and has the same Open Data Commons Open Database (ODbL) License. These include all semantic masks and flood masks. The rest of the data is licensed under CC by SA license.
