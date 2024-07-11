@@ -13,3 +13,5 @@ pixel_per_meter: ${data.pixel_per_meter}
 num_scale_bins: 32
 loss:
   num_classes: ${..num_classes}
+scale_range: [0, 9]
+z_min: null
