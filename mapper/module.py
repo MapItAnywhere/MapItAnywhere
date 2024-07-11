@@ -67,10 +67,15 @@ class GenericModule(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         pred = self(batch)
+        self.metrics_val(pred, batch)
+        self.log_dict(self.metrics_val, on_epoch=True)
 
         return pred
+    
+    def on_test_epoch_start(self):
+        self.metrics_val.reset()
 
-    def validation_epoch_start(self, batch):
+    def on_validation_epoch_start(self):
         self.losses_val = None
 
     def configure_optimizers(self):
