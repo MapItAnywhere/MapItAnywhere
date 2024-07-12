@@ -159,3 +159,18 @@ We thank the authors of the following repositories for their open-source code:
 - [Mono-Semantic-Maps](https://github.com/tom-roddick/mono-semantic-maps)
 - [Translating Images Into Maps](https://github.com/avishkarsaha/translating-images-into-maps)
 - [SkyEye](https://github.com/robot-learning-freiburg/SkyEye)
+
+## Citation
+
+If you find our paper and code useful, please cite us:
+
+```bib
+@misc{ho2024map,
+    title={Map It Anywhere (MIA): Empowering Bird's Eye View Mapping using Large-scale Public Data},
+    author={Cherie Ho and Jiaye Zou and Omar Alama and Sai Mitheran Jagadesh Kumar and Benjamin Chiang and Taneesh Gupta and Chen Wang and Nikhil Keetha and Katia Sycara and Sebastian Scherer},
+    year={2024},
+    eprint={2407.08726},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+```
