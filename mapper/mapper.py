@@ -2,51 +2,17 @@ import time
 import torch
 import hydra
 import pytorch_lightning as pl
-from typing import Any
 
-from hydra.core.config_store import ConfigStore
 from omegaconf import OmegaConf
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 
 from pathlib import Path
-from dataclasses import dataclass
 
 from .module import GenericModule
 from .data.module import GenericDataModule
 from .callbacks import EvalSaveCallback, ImageLoggerCallback
-from .models.schema import ModelConfiguration, DINOConfiguration, ResNetConfiguration
-from .data.schema import MIADataConfiguration, KITTIDataConfiguration, NuScenesDataConfiguration
-
-
-@dataclass
-class ExperimentConfiguration:
-    name: str
-
-@dataclass
-class Configuration:
-    model: ModelConfiguration
-    experiment: ExperimentConfiguration
-    data: Any
-    training: Any
-
-
-cs = ConfigStore.instance()
-
-# Store root configuration schema
-cs.store(name="pretrain", node=Configuration)
-cs.store(name="mapper_nuscenes", node=Configuration)
-cs.store(name="mapper_kitti", node=Configuration)
-
-# Store data configuration schema
-cs.store(group="schema/data", name="mia",
-         node=MIADataConfiguration, package="data")
-cs.store(group="schema/data", name="kitti", node=KITTIDataConfiguration, package="data")
-cs.store(group="schema/data", name="nuscenes", node=NuScenesDataConfiguration, package="data")
-
-cs.store(group="model/schema/backbone", name="dino", node=DINOConfiguration, package="model.image_encoder.backbone")
-cs.store(group="model/schema/backbone", name="resnet", node=ResNetConfiguration, package="model.image_encoder.backbone")
-
+from . import Configuration
 
 @hydra.main(version_base=None, config_path="conf", config_name="pretrain")
 def train(cfg: Configuration):

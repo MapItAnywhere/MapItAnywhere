@@ -1,11 +1,11 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-
 # Adapted from PixLoc, Paul-Edouard Sarlin, ETH Zurich
 # https://github.com/cvg/pixloc
 # Released under the Apache License 2.0
 
 import inspect
+from hydra.core.config_store import ConfigStore
 
+from .schema import DINOConfiguration, ResNetConfiguration
 from .base import BaseModel
 
 
@@ -26,3 +26,7 @@ def get_class(mod_name, base_path, BaseClass):
 
 def get_model(name):
     return get_class(name, __name__, BaseModel)
+
+cs = ConfigStore.instance()
+cs.store(group="model/schema/backbone", name="dino", node=DINOConfiguration, package="model.image_encoder.backbone")
+cs.store(group="model/schema/backbone", name="resnet", node=ResNetConfiguration, package="model.image_encoder.backbone")
