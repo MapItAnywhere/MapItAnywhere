@@ -51,6 +51,7 @@ cs = ConfigStore.instance()
 
 # Store root configuration schema
 cs.store(name="pretrain", node=Configuration)
+cs.store(name="pretrain_resnet", node=Configuration)
 cs.store(name="mapper_nuscenes", node=Configuration)
 cs.store(name="mapper_kitti", node=Configuration)
 

@@ -18,7 +18,7 @@ class LossConfiguration:
 class BackboneConfigurationBase:
     pretrained: bool
     frozen: bool
-    output_dim: bool
+    output_dim: int
 
 @dataclass
 class DINOConfiguration(BackboneConfigurationBase):
