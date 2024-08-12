@@ -210,6 +210,14 @@ def main(args, cfgs):
                 new_count = df.shape[0]
                 logger.info(f"[{location_name}] Keeping {new_count}/{old_count} ({new_count/old_count*100:.2f}%) "
                             "points that are within city boundaries")
+
+            # Image IDs fetched may have duplicates due to an image being on the boundary of two tiles
+            # Let us filter those duplicates out if needed
+            df_unique = df.drop_duplicates(subset="id")
+            if len(df_unique) < len(df):
+                logger.warn(f"Image Points fetched from tiles has { len(df)-len(df_unique)} duplicate records. We will drop those.")
+            df = df_unique
+            
             df.to_parquet(location_dir / 'image_points.parquet')
 
         # Stage 2: download the metadata
