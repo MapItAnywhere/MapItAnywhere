@@ -52,9 +52,11 @@
 The first stage of the MIA data engine is to get the first person images.
 First, if you want to pull your own locations, copy the example configuration from `mia/conf/example.yaml` and edit the cities list to specify the cities you want. Feel free to explore the other well-documented FPV options in the configuration file.
 
-Once configuration is done simply run the following from inside your docker container with working dir set to this repo:
+Second, you need to acquire an access token for the [Mapillary API](https://www.mapillary.com/developer/api-documentation).
 
-    python3.9 -m mia.fpv.get_fpv --cfg mia/conf/<YOUR_CONFIG>.yaml
+Once configuration is done and you have your token simply run the following from inside your docker container with working dir set to this repo:
+
+    python3.9 -m mia.fpv.get_fpv --cfg mia/conf/<YOUR_CONFIG>.yaml --token <MLY_TOKEN>
 
 That's it ! The engine will now automatically fetch, filter, and process your FPV images. You may get a few errors specifying that some images were unable to be fetched due to permission limitations. That is normal and the engine will continue.
 
@@ -67,7 +69,7 @@ Edit the documented bev options in your configuration file to suit your use case
 
 Once configuration is done simply run the following from inside your docker container with working dir set to this repo:
 
-    python3.9 -m mia.bev.get_bev
+    python3.9 -m mia.bev.get_bev --cfg mia/conf/<YOUR_CONFIG>.yaml
 
 The data engine will now fetch, process, and save the semantic masks.
 
@@ -80,9 +82,9 @@ You can visualize a few samples using the tool `mia/misc_tools/vis_samples.py`.
 
 From inside the container with working dir set to this repo, run:
 
-    python3.9 -m mia/misc_tools/vis_samples --dataset_dir /home/mia_dataset_release --locations <LOCATION_OF_INTEREST>
+    python3.9 -m mia.misc_tools.vis_samples --dataset_dir /home/mia_dataset_release --locations <LOCATION_OF_INTEREST>
 
-If successful, the script will generate a PDF called `compare.pdf` in the pittsburgh directory. Upon openning you should see the metadata, FPVs, and BEVs of a few samples of the dataset. 
+If successful, the script will generate a PDF called `compare.pdf` in the location directory. Upon openning you should see the metadata, FPVs, and BEVs of a few samples of the dataset. 
 
 
 ## Downloading the MIA dataset
