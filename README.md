@@ -67,6 +67,8 @@ Once you have the FPV parquet dataframes downloaded, you are now ready to fetch 
 
 Edit the documented bev options in your configuration file to suit your use case. The defaults are tuned to what we used to produce the MIA datasets and you can use them as is.
 
+You may also want to edit the stylesheet in `mia/bev/styles/mia.yml` used for rendering BEVs. Namely, the `driving_side` and `infer_sidewalks` options should be updated depending on the regions you are pulling from. For urbanized areas, set `infer_sidewalks=True`, for rural, set it to False. 
+
 Once configuration is done simply run the following from inside your docker container with working dir set to this repo:
 
     python3.9 -m mia.bev.get_bev --cfg mia/conf/<YOUR_CONFIG>.yaml
@@ -75,7 +77,7 @@ The data engine will now fetch, process, and save the semantic masks.
 
 You now have FPV-BEV pairs with associated metadata and camera parameters !
 
-**Note** to get satellite imagery for comparison you must first download it by toggling the store_sat option in the configuration
+**Note** to get satellite imagery for comparison you must first download it by toggling the store_sat option in the configuration and setting up a google earth project.
 
 ### 3. (Optional) Visualize your data
 You can visualize a few samples using the tool `mia/misc_tools/vis_samples.py`. 

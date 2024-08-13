@@ -91,4 +91,4 @@ cities:
   
   - name: "Frick Park"
     bound_type: "custom_bbox"
-    custom_bbox: "-79.9086,40.4294,-79.9052,40.4315" # East,South,West,North
+    custom_bbox: "-79.9102,40.4277,-79.9011,40.4343" # West,South,East,North
