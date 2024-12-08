@@ -2,7 +2,7 @@ dataset_dir: "datasets/new_locations"
 
 fpv_options:
   # Pipeline configuration to filter FPV images
-  filter_pipeline_cfg: "mia/fpv/filter_pipelines/mia.yaml"
+  filter_pipeline_cfg: "mia/fpv/filter_pipelines/mia_rural.yaml"
 
   # Chunk size is used for checkpointing as image metadata
   # can be very memory intensive. This allows you to resume

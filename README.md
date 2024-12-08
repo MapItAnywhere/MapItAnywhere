@@ -1,6 +1,8 @@
 <p align="center">
 <h1 align="center">Map It Anywhere (MIA): Empowering Bird’s Eye View Mapping using Large-scale Public Data</h1>
-
+<h3 class="is-size-5 has-text-weight-bold" style="color: orange;" align="center">
+    NeurIPS 2024 Dataset and Benchmark Track
+</h3>
   <p align="center">
     <a href="https://cherieho.com/"><strong>Cherie Ho*</strong></a>
     ·
@@ -25,37 +27,48 @@
   </p>
 
 </p>
+  <h3 align="center"><a href="https://arxiv.org/abs/2407.08726">Paper</a> | <a href="https://MapItAnywhere.github.io/">Project Page</a> | <a href="https://mapitanywhere-dataengine.hf.space">Data Engine Demo</a> | <a href="https://mapitanywhere-mapper.hf.space">Map Prediction Demo</a></h3>
+  <div align="center"></div>
+
+<p align="center">
+  <img src="assets/mia_gif.gif" />
+</p>
+
 
 ![Map It Anywhere (MIA)](/assets/mia_pull_fig.png "Map It Anywhere (MIA)")
 
+
 ## Table of Contents
-  - [Using the MIA Data Engine](#using-the-mia-data-engine)
-  - [Downloading the MIA dataset](#downloading-the-mia-dataset)
+  - [Get Your Own Map Prediction Data: Using the MIA Data Engine](#get-map-prediction-data-using-the-mia-data-engine)
+  - [Use Our Map Prediction Data: Downloading the MIA dataset](#get-our-map-prediction-data-downloading-the-mia-dataset)
+  - [Let's Predict Maps! Set up Mapper Env](#lets-predict-maps-setting-up-mapper-environment)
   - [Training](#training)
   - [Evaluation](#evaluation)
   - [Acknowledgement](#acknowledgement)
 
 
-## Using the MIA data engine
+## Get Map Prediction Data: Using the MIA data engine
 
 ### 0. Setting up the environment
 0. Install docker by following the instructions on their [website](https://www.docker.com/get-started/)
-1. Build the docker image `mia/Dockerfile` by running: 
+1. Pull our docker image to set up the MIA data engine: 
 
-        docker build -t mia:release mia
+        docker pull theairlab/mia:latest
 2. Launch the container while mounting this repository to the container file system.
 
-        docker run -v <PATH_TO_THIS_REPO>:/home/MapItAnywhere --network=bridge -it mia:release
+        docker run -v <PATH_TO_THIS_REPO>:/home/MapItAnywhere --network=host -it theairlab/mia:latest
 
 ### 1. Getting FPVs
 
-The first stage of the MIA data engine is to get the first person images.
-First, if you want to pull your own locations, copy the example configuration from `mia/conf/example.yaml` and edit the cities list to specify the cities you want. Feel free to explore the other well-documented FPV options in the configuration file.
+The first stage of the MIA data engine is to get the first person view (FPV) images.
+To get started, if you'd prefer a quick demonstration, you can use the example configuration `mia/conf/mia_quick.yaml`, which is set up with a few small areas to let you experience the full pipeline quickly. To use your own locations, copy the example configuration file from `mia/conf/example.yaml` and modify the cities list to include your desired locations.
+Feel free to explore the other well-documented FPV options in the configuration file.
 
 Second, you need to acquire an access token for the [Mapillary API](https://www.mapillary.com/developer/api-documentation).
 
 Once configuration is done and you have your token simply run the following from inside your docker container with working dir set to this repo:
 
+    cd /home/MapItAnywhere
     python3.9 -m mia.fpv.get_fpv --cfg mia/conf/<YOUR_CONFIG>.yaml --token <MLY_TOKEN>
 
 That's it ! The engine will now automatically fetch, filter, and process your FPV images. You may get a few errors specifying that some images were unable to be fetched due to permission limitations. That is normal and the engine will continue.
@@ -84,15 +97,15 @@ You can visualize a few samples using the tool `mia/misc_tools/vis_samples.py`.
 
 From inside the container with working dir set to this repo, run:
 
-    python3.9 -m mia.misc_tools.vis_samples --dataset_dir /home/mia_dataset_release --locations <LOCATION_OF_INTEREST>
+    python3.9 -m mia.misc_tools.vis_samples --dataset_dir <PATH_TO_DATASET_SEE_CONFIG_YML> --locations <LOCATION_OF_INTEREST>
 
 If successful, the script will generate a PDF called `compare.pdf` in the location directory. Upon openning you should see the metadata, FPVs, and BEVs of a few samples of the dataset. 
 
 
-## Downloading the MIA dataset
+## Get Our Map Prediction Data: Downloading the MIA dataset
 Refer to [mia/dataset.md](mia/dataset.md) for instructions.
 
-## Setting Up Mapper Environment
+## Let's Predict Maps! Setting Up Mapper Environment
 
 ### Install using pip
 You can install all requirements using pip by running:
@@ -107,7 +120,7 @@ To use Mapper using Docker, please follow the steps:
         docker build -t mapper:release mapper
 2. Launch the container while mounting this repository to the container file system.
     
-        docker run -v <PATH_TO_THIS_REPO>:/home/mapper --network=bridge -it --gpus=all mapper:release
+        docker run -v <PATH_TO_THIS_REPO>:/home/mapper --network=host -it --gpus=all mapper:release
 
 ## Training
 
@@ -166,15 +179,16 @@ We thank the authors of the following repositories for their open-source code:
 
 ## Citation
 
-If you find our paper and code useful, please cite us:
+If you find our paper, dataset or code useful, please cite us:
 
 ```bib
-@misc{ho2024map,
-    title={Map It Anywhere (MIA): Empowering Bird's Eye View Mapping using Large-scale Public Data},
-    author={Cherie Ho and Jiaye Zou and Omar Alama and Sai Mitheran Jagadesh Kumar and Benjamin Chiang and Taneesh Gupta and Chen Wang and Nikhil Keetha and Katia Sycara and Sebastian Scherer},
-    year={2024},
-    eprint={2407.08726},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
+@inproceedings{ho2024map,
+title = {Map It Anywhere (MIA): Empowering Bird's Eye View Mapping using Large-scale Public Data},
+author = {Ho, Cherie and Zou, Jiaye and Alama, Omar and Kumar, Sai Mitheran Jagadesh and Chiang, Benjamin and Gupta,
+Taneesh and Wang, Chen and Keetha, Nikhil and Sycara, Katia and Scherer, Sebastian},
+year = {2024},
+booktitle = {Advances in Neural Information Processing Systems},
+url = {https://arxiv.org/abs/2407.08726},
+code = {https://github.com/MapItAnywhere/MapItAnywhere}
 }
 ```
